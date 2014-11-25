@@ -54,7 +54,7 @@
 
 (defn encipher-generator
   "Takes an integer n, and returns a function that will encipher
-  a given message according to the n-shift monoalphabetic 
+  a given message according to the n-step monoalphabetic 
   shift cipher."
   [n]
   (shift-function-generator n))
@@ -62,7 +62,7 @@
 
 (defn decipher-generator
   "Takes in an integer n, and returns a function that will decipher
-  a given message according to the n-shift monoalphabetic
+  a given message according to the n-step monoalphabetic
   shift cipher."
   [n]
   (shift-function-generator (- n)))
