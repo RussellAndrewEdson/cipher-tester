@@ -58,7 +58,6 @@
   shift cipher."
   [n]
   (shift-function-generator n))
-  
 
 (defn decipher-generator
   "Takes in an integer n, and returns a function that will decipher
