@@ -67,3 +67,13 @@
   shift cipher."
   [n]
   (shift-function-generator (- n)))
+
+;; TODO: Test this change. 28/11
+; (since all cipher functions will look the same regardless of the 
+; actual cipher in use, perhaps look into using a macro here?)
+(defn cipher
+  "Takes in a cipher key (in this case, an integer n to shift by)
+  and returns a map containing :encipher and :decipher functions  
+  to work with that key."
+  [n]
+  {:encipher (encipher-generator n), :decipher (decipher-generator n)})
