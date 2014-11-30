@@ -27,12 +27,10 @@
   [n]
   (mod n 26))
 
-(defn alphabet-character?
-  "Returns true if the given character is a lower-case
-  alphabet character."
+(defn lowercase-alphabet-character?
+  "Returns true if the given character is a lower-case alphabet character."
   [ch]
-  (and (>= (int ch) (int \a))
-       (<= (int ch) (int \z))))
+  (<= (int \a) (int ch) (int \z)))
 
 (defn shift-by-n
   "Shifts the given lower-case character ch forward by n, 
@@ -49,7 +47,7 @@
   [n]
   (fn [message]
     (apply str (map (fn [ch]
-                      (if (alphabet-character? ch)
+                      (if (lowercase-alphabet-character? ch)
                         (shift-by-n n ch)
                         ch))                     
                     (clojure.string/lower-case message)))))
