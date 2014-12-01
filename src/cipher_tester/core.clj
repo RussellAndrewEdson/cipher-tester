@@ -21,11 +21,12 @@
 (ns ^{:doc "The main GUI for the cipher tester."
       :author "Russell Andrew Edson"}
   cipher-tester.core
+    ;; After test, remove JOptionPane from imports!
     (:import (javax.swing JFrame JLabel JTextField JButton JComboBox BoxLayout JOptionPane)
              (java.awt.event ActionListener)))
 
 ;; TODO: Put main GUI code in here.
-
+;; GUI test code to make sure this works...
 (defn -main []
   (let [frame (JFrame. "Hello Swing")
         button (JButton. "Click Me")]
