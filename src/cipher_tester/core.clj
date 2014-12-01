@@ -35,11 +35,11 @@
     (.addActionListener button
       (proxy [ActionListener] []
         (actionPerformed [event]
-          (JOptionPane/showMessageDialog nil,
-             (str "<html>Hello from <b>Clojure</b>. Button "
-                  (.getActionCommand event) " clicked.")))))
+          (JOptionPane/showMessageDialog nil (str "Hello world!")))))
     (doto frame
       (.setDefaultCloseOperation JFrame/EXIT_ON_CLOSE)
       (.add button)
       (.pack)
+      ;; Need to determine a decent starting size for the app...
+      (.setSize 400 300)
       (.setVisible true))))
