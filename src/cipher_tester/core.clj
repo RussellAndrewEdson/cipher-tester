@@ -27,6 +27,8 @@
 
 ;; TODO: Put main GUI code in here.
 ;; GUI test code to make sure this works...
+;; From Stuart Halloway's example found at:
+;;   thinkrelevance.com/blog/2008/08/12/java-next-2-java-interop
 (defn -main []
   (let [frame (JFrame. "Hello Swing")
         button (JButton. "Click Me")]
