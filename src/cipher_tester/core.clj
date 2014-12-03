@@ -21,25 +21,63 @@
 (ns ^{:doc "The main GUI for the cipher tester."
       :author "Russell Andrew Edson"}
   cipher-tester.core
-    ;; After test, remove JOptionPane from imports!
-    (:import (javax.swing JFrame JLabel JTextField JButton JComboBox BoxLayout JOptionPane)
+    (:import (javax.swing JFrame JPanel JLabel JTextArea JButton JComboBox)
+             (javax.swing BoxLayout JScrollPane)
+             (java.awt GridLayout BorderLayout)
              (java.awt.event ActionListener)))
 
-;; TODO: Put main GUI code in here.
+(def ^{:doc "The application title, along with the version number."}
+  application-title "cipher-tester v0.1")
+
+(def ^{:doc "A list of all of the ciphers currently supported by the program."}
+  cipher-choices ["Monoalphabetic Shift Cipher"])
+
 ;; GUI test code to make sure this works...
-;; From Stuart Halloway's example found at:
-;;   thinkrelevance.com/blog/2008/08/12/java-next-2-java-interop
 (defn -main []
-  (let [frame (JFrame. "Hello Swing")
-        button (JButton. "Click Me")]
-    (.addActionListener button
-      (proxy [ActionListener] []
-        (actionPerformed [event]
-          (JOptionPane/showMessageDialog nil (str "Hello world!")))))
-    (doto frame
+  (let [main-frame (JFrame. application-title)
+        main-panel (JPanel. (BorderLayout.))
+        io-panel (JPanel. (GridLayout. 1 2))
+        input-panel (JPanel.)
+        input-area (JTextArea.)
+        output-panel (JPanel.)
+        output-area (JTextArea.)
+        control-panel (JPanel. (GridLayout. 1 2))
+        cipher-config-panel (JPanel. (GridLayout. 2 1))
+        cipher-select-panel (JPanel.)
+        cipher-config-button (JButton. "Configure cipher...")
+        cipher-select-box (JComboBox. (into-array cipher-choices))
+        buttons-panel (JPanel. (GridLayout. 1 2))
+        encipher-button (JButton. "Encipher")
+        decipher-button (JButton. "Decipher")]
+    (doto main-panel
+      (.add io-panel BorderLayout/CENTER)
+      (.add control-panel BorderLayout/SOUTH))
+    (doto io-panel
+      (.add input-panel)
+      (.add output-panel))
+    (doto input-panel
+      (.setLayout (BoxLayout. input-panel BoxLayout/Y_AXIS))
+      (.add (JLabel. "Input: "))
+      (.add (JScrollPane. input-area)))
+    (doto output-panel
+      (.setLayout (BoxLayout. output-panel BoxLayout/Y_AXIS))
+      (.add (JLabel. "Output: "))
+      (.add (JScrollPane. output-area)))
+    (doto control-panel
+      (.add cipher-config-panel)
+      (.add buttons-panel))
+    (doto cipher-config-panel
+      (.add cipher-select-panel)
+      (.add cipher-config-button))
+    (doto cipher-select-panel
+      (.add (JLabel. "Select cipher: "))
+      (.add cipher-select-box))
+    (doto buttons-panel
+      (.add encipher-button)
+      (.add decipher-button))
+    (doto main-frame
       (.setDefaultCloseOperation JFrame/EXIT_ON_CLOSE)
-      (.add button)
-      (.pack)
-      ;; Need to determine a decent starting size for the app...
-      (.setSize 400 300)
+      (.setContentPane main-panel)
+      (.setSize 700 400)
       (.setVisible true))))
+        
