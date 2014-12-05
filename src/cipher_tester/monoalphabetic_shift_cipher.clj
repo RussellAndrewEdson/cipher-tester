@@ -22,22 +22,13 @@
       :author "Russell Andrew Edson"}
   cipher-tester.monoalphabetic-shift-cipher)
 
-(defn mod26
-  "Returns n modulo 26."
-  [n]
-  (mod n 26))
-
-(defn lowercase-alphabet-character?
-  "Returns true if the given character is a lower-case alphabet character."
-  [ch]
-  (<= (int \a) (int ch) (int \z)))
-
 (defn shift-by-n
   "Shifts the given lower-case character ch forward by n, 
   looping back around to 'a' if we reach the end."
   [n ch]
   (char (+ (int \a)
-           (mod26 (+ n (- (int ch) (int \a)))))))
+           (mod (+ n (- (int ch) (int \a))) 
+                26))))
 
 (defn shift-function-generator
   "Takes in an integer n, and returns a function that will
@@ -47,7 +38,7 @@
   [n]
   (fn [message]
     (apply str (map (fn [ch]
-                      (if (lowercase-alphabet-character? ch)
+                      (if (Character/isLowerCase ch)
                         (shift-by-n n ch)
                         ch))                     
                     (clojure.string/lower-case message)))))
