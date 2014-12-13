@@ -390,11 +390,93 @@
     (is (correct-decipher? other-characters  26))))
 
 
+;; Test of invariants: 
+
+(defn make-message-length
+  "Generates a random message length between 1 and 50 characters for 
+  testing purposes."
+  []
+  (inc (rand-int 50)))
+
+(defn make-random-message
+  "Generates a random message of the given length."
+  [n]
+  (let [all-possible-characters (concat lowercase-alphabet
+                                        uppercase-alphabet
+                                        other-characters)]
+    (apply str (for [i (range n)] 
+                 (nth all-possible-characters
+                      (rand-int (count all-possible-characters)))))))
+    
+
 ;; Test of invariant -- the message length doesn't ever change:
-;;TODO: Look into using test.generative or something for this stuff.
+
+(defn correct-length-with-encipher?
+  "Take in a message length and a cipher shift key, and returns true if
+  the length of the message is unchanged by the enciphering."
+  [message-length shift]
+  (= message-length
+     (count ((:encipher (cipher shift))
+               (make-random-message message-length)))))
+
+(defn correct-length-with-decipher?
+  "Take in a message length and a cipher shift key, and returns true if
+  the length of the message is unchanged by the deciphering."
+  [message-length shift]
+  (= message-length
+     (count ((:decipher (cipher shift))
+               (make-random-message message-length)))))
+
+(deftest invariant-message-length
+  (testing "Message length doesn't change when encipher applied"
+    ;TODO: There absolutely has to be a way to do this with a macro.
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-encipher? (make-message-length) (rand-int 26))))
+
+  (testing "Message length doesn't change when decipher applied"
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))
+    (is (correct-length-with-decipher? (make-message-length) (rand-int 26)))))
+
 
 ;; Test of invariant -- encipher, decipher are inverses of each other:
 ;;TODO
 
 ;; Test of invariant -- encipher/decipher are commutative with permutation:
 ;;TODO
+
