@@ -3,5 +3,6 @@
   :url "https://github.com/RussellAndrewEdson/cipher-tester"
   :license {:name "The MIT License"
             :url "http://opensource.org/licenses/MIT"}
-  :dependencies [[org.clojure/clojure "1.6.0"]]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/math.combinatorics "0.0.8"]]
   :main cipher-tester.core)

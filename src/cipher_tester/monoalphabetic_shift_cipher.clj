@@ -18,9 +18,12 @@
 ; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ; SOFTWARE.
 
-(ns ^{:doc "Functions for creating monoalphabetic shift ciphers."
+(ns ^{:doc "Functions for dealing with monoalphabetic shift ciphers."
       :author "Russell Andrew Edson"}
   cipher-tester.monoalphabetic-shift-cipher)
+
+(def ^{:doc "The name of this cipher."}
+  cipher-name "Monoalphabetic Shift Cipher")
 
 (defn shift-by-n
   "Shifts the given lower-case character ch forward by n, 
