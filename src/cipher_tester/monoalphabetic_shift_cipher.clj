@@ -1,4 +1,4 @@
-; Copyright (c) 2014 Russell Andrew Edson
+; Copyright (c) 2014, 2015 Russell Andrew Edson
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -46,14 +46,14 @@
                         ch))                     
                     (clojure.string/lower-case message)))))
 
-(defn encipher-generator
+(defn make-encipher
   "Takes an integer n, and returns a function that will encipher
   a given message according to the n-step monoalphabetic 
   shift cipher."
   [n]
   (shift-function-generator n))
 
-(defn decipher-generator
+(defn make-decipher
   "Takes in an integer n, and returns a function that will decipher
   a given message according to the n-step monoalphabetic
   shift cipher."
@@ -63,6 +63,12 @@
 (defn cipher
   "Takes in a cipher key (in this case, an integer n to shift by)
   and returns a map containing :encipher and :decipher functions  
-  to work with that key."
+  to work with that key, as well as a :key map containing the
+  keys used to construct the cipher."
   [n]
-  {:encipher (encipher-generator n), :decipher (decipher-generator n)})
+  {:encipher (make-encipher n), 
+   :decipher (make-decipher n),
+   :key {:n n}})
+
+(def ^{:doc "The default example of this cipher (the 3-shift Caesar cipher."}
+  default-cipher (cipher 3))
