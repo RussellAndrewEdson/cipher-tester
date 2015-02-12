@@ -1,4 +1,4 @@
-; Copyright (c) 2014 Russell Andrew Edson
+; Copyright (c) 2014, 2015 Russell Andrew Edson
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@
   cipher-choices [cipher-tester.monoalphabetic-shift-cipher/cipher-name])
 
 (def ^{:doc "The cipher to be used by the program. Default: Caesar cipher."}
-  current-cipher (ref (cipher-tester.monoalphabetic-shift-cipher/cipher 3)))
+  current-cipher (ref cipher-tester.monoalphabetic-shift-cipher/default-cipher))
 
 (def ^{:doc "Welcome text for the user."}
   welcome-text 
