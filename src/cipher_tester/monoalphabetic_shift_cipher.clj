@@ -33,7 +33,7 @@
            (mod (+ n (- (int ch) (int \a))) 
                 26))))
 
-(defn shift-function-generator
+(defn make-shift-function
   "Takes in an integer n, and returns a function that will
   take an input string and shift each alphabetic character
   forward by n steps. Non-alphabetic characters are not
@@ -46,19 +46,19 @@
                         ch))                     
                     (clojure.string/lower-case message)))))
 
-(defn make-encipher
+(defn make-encipher-function
   "Takes an integer n, and returns a function that will encipher
   a given message according to the n-step monoalphabetic 
   shift cipher."
   [n]
-  (shift-function-generator n))
+  (make-shift-function n))
 
-(defn make-decipher
+(defn make-decipher-function
   "Takes in an integer n, and returns a function that will decipher
   a given message according to the n-step monoalphabetic
   shift cipher."
   [n]
-  (shift-function-generator (- n)))
+  (make-shift-function (- n)))
 
 (defn cipher
   "Takes in a cipher key (in this case, an integer n to shift by)
@@ -66,8 +66,8 @@
   to work with that key, as well as a :key map containing the
   keys used to construct the cipher."
   [n]
-  {:encipher (make-encipher n), 
-   :decipher (make-decipher n),
+  {:encipher (make-encipher-function n), 
+   :decipher (make-decipher-function n),
    :key {:n n}})
 
 (def ^{:doc "The default example of this cipher (the 3-shift Caesar cipher."}
